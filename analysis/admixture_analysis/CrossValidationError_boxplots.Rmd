@@ -1,0 +1,73 @@
+---
+title: "admixture cv boxplots"
+output: html_document
+---
+
+```{r setup}
+library(tidyverse)
+```
+
+
+CV is calculated when running AdmixturePipeline and saved to a file called: cv_summary.txt
+Extract info to tab delim file using command:
+> awk '{print $3"\t"$4}' cv_summary.txt | tr -d '():K=' >> cv_summary_table.txt
+
+```{r}
+cv_table <- read.table("cv_summary_table.txt")
+
+
+# give column names
+cv_table <- dplyr::rename(cv_table, K = V1, CV = V2)
+grouped_cv_table <- cv_table %>% group_by(K)
+
+cv_table$K <- as.factor(cv_table$K)
+
+
+means <- aggregate(CV ~  K, cv_table, mean)
+#medians <- aggregate(CV ~  K, cv_table, median)
+
+cv_plot <- ggplot(cv_table, aes(x=K, y=CV)) +
+  geom_boxplot() +
+  labs(title="Admixture Cross Validation Error",x="K value", y = "CV Value") +
+  theme_classic()
+
+cv_plot
+```
+
+Compare mean vs median values
+```{r}
+summary <- grouped_cv_table %>%
+          summarise(mean=mean(CV), median=median(CV), stdv=sd(CV))
+
+print(round(summary, digits=4))
+
+summary$K <- as.factor(summary$K)
+
+summary_plot <-  ggplot(summary, aes(x=K, y=mean)) +
+  geom_point(color="blue", size=2) +
+  geom_point(aes(x=K, y=median), size=2, color="darkred", show.legend=FALSE) + 
+  annotate("text", x=15, y=.194, color="darkred", label="median", size=6) +
+  annotate("text", x=15, y=.191, color="blue", label="mean", size=6) +
+  theme_classic()
+
+summary_plot
+```
+
+
+Zoom in on the higher K values
+```{r}
+higher_k_summary <- grouped_cv_table %>% filter(K >= 10) %>%
+          summarise(mean=mean(CV), median=median(CV), stdv=sd(CV))
+
+higher_k_summary_plot <-  ggplot(higher_k_summary, aes(x=K, y=mean)) +
+  geom_point(color="blue", size=2) +
+  geom_point(aes(x=K, y=median), size=2, color="darkred", show.legend=FALSE) + 
+  annotate("text", x=15, y=.1568, color="darkred", label="median", size=6) +
+  annotate("text", x=15, y=.1565, color="blue", label="mean", size=6) +
+  scale_x_continuous(breaks = c(10, 11, 12, 13, 14, 15, 16, 17, 18, 19)) +
+  theme_classic() +
+  ylim(0.145,0.152) +
+  geom_text(stat = 'summary', fun.y=mean, aes(label = round(..y.., 5)), nudge_x = 0.1, hjust = 0)
+
+higher_k_summary_plot
+```

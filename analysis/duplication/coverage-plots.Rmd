@@ -1,0 +1,223 @@
+---
+title: "binding-protein-coverage-plots"
+output: html_document
+---
+
+Looking at coverage levels of interesting genes in the SANRU_9 deduped BAM file via begraph read counts.
+
+```{r}
+library(tidyverse)
+
+```
+
+
+PvDBP
+```{r}
+DBP <- read.table("DBP-EXTRA-extended_SANRU_9.dedup.sorted.bam.persitedepth.bedgraph", header=F, skip=0, sep='\t')
+```
+
+rename columns
+```{r}
+
+DBP <- dplyr::rename(DBP, chr = V1, pos = V2, read_depth = V3)
+```
+
+restrict dataset to region around gene of interest
+```{r}
+DBP <- DBP %>% 
+  filter(chr == "LT635617") %>%
+  #filter(between(pos, 970474,998688))
+  filter(between(pos, 978000,990500))
+  #filter(between(pos, 978000,989000))
+
+
+#DBP 981,059-987,037
+```
+
+plot
+```{r}
+dbp_plot <- ggplot(DBP, aes(x=pos, y=read_depth)) + 
+  geom_point() +
+  theme_classic() +
+  labs(x="LT635617:978,000-990,000", y = "Read Depth") +
+  stat_summary_bin(aes(y = read_depth, group=1), fun=mean, colour="blue", geom="line", bins=20, size=2)
+
+dbp_plot
+
+#ggsave(file="DBP_coverage.svg", plot=dbp_plot, width=12, height=8)
+```
+
+
+Averaged read depth
+```{r}
+DBP_ranges <- read.table("DBP-EXTRA-extended_SANRU_9.dedup.sorted.bam.ranges.bedgraph", header=F, skip=0, sep='\t')
+
+#DBP_ranges <- rename(DBP_ranges,chr = V1,start_pos = V2,end_pos = V3, read_depth = V4)
+colnames(DBP_ranges) <- c("seqnames", "start", "end", "value")
+
+
+DBP_ranges <- DBP_ranges %>% 
+  filter(seqnames == "LT635617") %>%
+  #filter(between(start, 970474,998688)) # genomic coordinates for region surrounding DBP gene
+  filter(between(start, 978000,990000))
+# Write to new file so I dont have to import the full genome file every time
+#write.table(DBP_ranges, file="DBP-EXTRA-extended_SANRU_9.dedup.sorted.bam.ranges.chr6-only.bedgraph", row.names = F, quote = F, sep = "\t")
+
+```
+
+
+Binning and averaging
+https://www.jdatalab.com/data_science_and_data_mining/2017/01/30/data-binning-plot.html
+```{r}
+
+seq_length <- max(DBP_ranges$start) - min(DBP_ranges$start)
+bins_1kb <- ceiling(seq_length / 20)
+DBP_bins <- DBP_ranges %>%
+    mutate(bins = cut(start, 200))
+
+
+DBP_bins <- DBP_bins %>%
+  group_by(bins) %>%
+  summarise_at(vars(value),
+               list(coverage = mean))
+
+
+dbp_bins_plot <- ggplot(DBP_bins, aes(x=bins, y=coverage)) + 
+  geom_point(size=3) +
+  theme_classic() +
+  labs(title="DBP read depth",x="Position", y = "Coverage") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank()) #+
+  #stat_summary_bin(aes(y = coverage, group=1), fun=mean, colour="blue", geom="line", bins=5)
+
+dbp_bins_plot
+```
+
+Normalize
+```{r}
+DBP_upstream <- DBP %>% 
+  filter(between(pos, 970474, 980474))
+# summarize coverage for the region
+DBP_upstream_summary <- DBP_upstream %>%
+  summarise(S9=mean(read_depth))
+# convert to long format
+DBP_upstream_long <- DBP_upstream_summary %>% gather(sample, DBP_upstream)
+
+DBP_EXTRA <- DBP %>%
+  filter(between(pos, 980474,988688))
+DBP_EXTRA_summary <- DBP_EXTRA %>%
+  summarise(S9=mean(read_depth))
+DBP_EXTRA_long <- DBP_EXTRA_summary %>% gather(sample, DBP)
+
+
+DBP_downstream <- DBP %>%
+  filter(between(pos, 988688, 998688))
+DBP_downstream_summary <- DBP_downstream %>%
+  summarise(S9=mean(read_depth))  
+DBP_downstream_long <- DBP_downstream_summary %>% gather(sample, DBP_downstream)
+
+# join long format tables into one table by individual
+DBP_region_coverage_summary <- left_join(DBP_upstream_long, DBP_EXTRA_long, by="sample")
+DBP_region_coverage_summary <- left_join(DBP_region_coverage_summary, DBP_downstream_long, by="sample")
+
+#find the average for upstream and downstream combined
+DBP_region_coverage_summary <- DBP_region_coverage_summary %>% mutate(non_genic_ave = rowMeans(cbind(DBP_upstream, DBP_downstream), na.rm=F))
+#https://stackoverflow.com/a/34169335/10176950
+#"mean is not vectorized. It collapse all inputs to a single value. If you make a matrix with cbind(), you can use rowMeans to do the trick"
+
+# Finally, check for duplication
+DBP_region_coverage_summary <- DBP_region_coverage_summary %>% mutate(genecov_over_nongenecov = DBP / non_genic_ave)
+DBP_region_coverage_summary$gene <- rep(c("DBP"), times=NROW(DBP_region_coverage_summary))
+```
+
+
+
+make GenomicRanges
+```{r}
+
+#gr <-  makeGRangesListFromDataFrame(DBP_ranges, ignore.strand=TRUE, keep.extra.columns=TRUE)
+# https://www.biostars.org/p/9535297/#9535382
+
+
+# make bins
+# https://bioconductor.org/packages/release/bioc/vignettes/GenomicRanges/inst/doc/GenomicRangesHOWTOs.pdf
+#seq_length <- as.numeric(c(min(DBP_ranges$start), max(DBP_ranges$start)))
+#names(seq_length) <- c("start", "end") #make numeric vector
+#bins <- tileGenome(seq_length, tilewidth=100, cut.last.tile.in.chrom=TRUE)
+
+#bins <- tileGenome(gr, tilewidth=100, cut.last.tile.in.chrom=TRUE)
+
+#binnedAverage(bins, value, "binned_var")
+
+```
+
+
+XXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXX
+
+PvDBP2
+```{r}
+DBP2 <- read.table("DBP2-extended_SANRU_9.dedup.bam.sorted.bam.persitedepth.bedgraph", header=F, skip=0, sep='\t')
+```
+
+rename columns
+```{r}
+DBP2 <- rename(DBP2,chr = V1,pos = V2,read_depth = V3)
+```
+
+restrict dataset to region around gene of interest
+```{r}
+DBP2 <- DBP2 %>% 
+  filter(chr == "LT635612") %>%
+  filter(between(pos, 94013,117429))
+
+```
+
+plot
+```{r}
+DBP2_plot <- ggplot(DBP2, aes(x=pos, y=read_depth)) + 
+  geom_point() +
+  theme_classic() +
+  labs(title="DBP2 read depth",x="Position", y = "Coverage") 
+DBP2_plot
+```
+
+
+XXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXX
+
+PvRBP2b LT635619:34100-42808
+```{r}
+RBP2b <- read.table("RBP2b-extended_SANRU_9.dedup.bam.sorted.bam.persitedepth.bedgraph", header=F, skip=0, sep='\t')
+```
+
+rename columns
+```{r}
+RBP2b <- rename(RBP2b,chr = V1,pos = V2,read_depth = V3)
+```
+
+restrict dataset to region around gene of interest
+```{r}
+RBP2b <- RBP2b %>% 
+  filter(chr == "LT635619") %>%
+  filter(between(pos, 33100,43808))
+
+```
+
+plot
+```{r}
+RBP2b_plot <- ggplot(RBP2b, aes(x=pos, y=read_depth)) + 
+  geom_point() +
+  theme_classic() +
+  labs(title="RBP2b read depth",x="Position", y = "Coverage") #+
+  #theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+ # facet_wrap(~gene)
+
+RBP2b_plot
+```

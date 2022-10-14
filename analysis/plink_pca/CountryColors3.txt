@@ -1,0 +1,44 @@
+Country	Color
+Brazil	#134214
+Peru	#99cccc
+Colombia	#99cc33
+Guyana	#006666
+Panama	#66cc66
+Mexico	#009933
+Nicaragua	#336666
+UnitedStates	#66ff66
+
+Mauritania	#3300ff
+Uganda	#003366
+Madagascar	#6666ff
+Ethiopia	#000099
+Eritrea	#ccccff
+Sudan	#006699
+DRC	#0099cc
+vivax-like	#6699cc
+
+
+Pakistan	#cc0099
+India	#660066
+Afghanistan	#ff00ff
+Bangladesh	#660066
+SriLanka	#ff99cc
+
+Laos	#cc0000
+Myanmar	#660000	
+China	#FF0000
+Vietnam	#990000
+Thailand	#CC6666
+Cambodia	#FF6666
+NorthKorea	#FF3300
+
+Malaysia	#CC9933
+Philippines	#996633
+Indonesia	#663300
+PapuaNewGuinea	#FFCC00
+
+SalI	#028a13
+European1x	#898edd
+European2x	#6666cc
+BelemStrain	#666666
+simium	#bb7070

@@ -1,0 +1,44 @@
+---
+title: "Take a random sample of vivax accession numbers for one region only"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+Read in the CSV file with columns:
+accession,region,country,moi
+```{r}
+popfile <- read.table('filtered_location_table.csv', header=TRUE, skip=0, sep=',')
+```
+
+
+Select region
+```{r}
+africa_samples <- popfile %>% filter(region == "africa")
+# samples per country in Africa
+africa_samples %>% count(country)
+
+africa_acc <- africa_samples$accession
+write.table(africa_acc, "africa_vivax_accessions.txt", sep="\t", col.names=F, row.names=F, quote=F)
+```
+
+
+# Pick n samples per country 
+```{r}
+popfile <- popfile %>% dplyr::select(-c(region, moi))
+
+grouped_popfile <- popfile %>% drop_na() %>% group_by(country)
+
+# remove unpublished Peru samples
+grouped_popfile <- grouped_popfile %>% dplyr::filter(!stringr::str_detect(accession, 'MDP'))
+
+for(random_draw in 1:2){
+
+global_subsample <- grouped_popfile %>% slice_sample(n=10)
+
+write.table(global_subsample,paste("/path/", random_draw, "-global_subsample_10sampspercountry_replacements.txt", sep=""), sep="\t",row.names=FALSE, col.names = FALSE, quote = FALSE)
+}
+```
+
