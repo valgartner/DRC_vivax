@@ -1,0 +1,95 @@
+---
+title: "Private Alleles"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r}
+library(tidyverse)
+library(gridExtra)
+```
+
+Read in data & join into one table
+```{r}
+segregating_sites <- read.table('segregating_sites.txt', header=T, skip=0, sep='\t')
+private_alleles <- read.table('biallelic-private-alleles.txt', header=T, skip=0, sep='\t')
+
+sample_counts <- read.table('sample_counts.txt', header=T, skip=0, sep='\t')
+# add sample counts to one of the tables
+segregating_sites <- left_join(segregating_sites, sample_counts, by="country")
+
+# combine all the data tables into one summary table
+snps_summary_table <- left_join(private_alleles, segregating_sites, by="country")
+```
+
+
+Create new columns for ratios
+```{r}
+# number of private alleles per sample
+snps_summary_table <- snps_summary_table %>% mutate(private_alleles_per_sample = private_alleles / sample_no)
+
+# ratio of private alleles to # of total snps in the population
+snps_summary_table <- snps_summary_table %>% mutate(private_allele_over_S_ratio = private_alleles / segregating_sites)
+
+
+
+```
+
+Visualize private alleles absolute number per country
+```{r}
+private_alleles_count_plot <- ggplot(snps_summary_table, aes(x=country, y=private_alleles, fill=region)) + 
+  geom_col() + 
+  theme_classic() +
+  labs(title="Private allele count per country",x="Country", y = "No. Private Alleles") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  facet_wrap(~ region, scales = 'free_x') +
+  theme(legend.position = "none") +
+  scale_fill_manual(values = c("#000099ff", "#339999ff", "#ff0000ff", "#ff00ffff", "#996633ff")) 
+
+private_alleles_count_plot
+
+#ggsave("private-allele-count-per-country.png", private_alleles_count_plot)
+```
+
+Visualize private alleles per sample
+```{r}
+private_alleles_per_sample_plot <- ggplot(snps_summary_table, aes(x=country, y=private_alleles_per_sample, fill=region)) + 
+  geom_col() + 
+  theme_classic() +
+  labs(title="Average number of private alleles per sample",x="Country", y = "Average No. Private Alleles") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  facet_wrap(~ region, scales = 'free_x') +
+  scale_fill_manual(values = c("#000099ff", "#339999ff", "#ff0000ff", "#ff00ffff", "#996633ff")) +
+  theme(legend.position = "none")
+
+private_alleles_per_sample_plot
+
+```
+
+Save both plots in one figure
+```{r}
+combined_plot <- grid.arrange(private_alleles_count_plot, private_alleles_per_sample_plot, nrow=1)
+
+ggsave(file="private_alleles.png", plot=combined_plot, width=12, height=8)
+```
+
+
+Sample Count
+```{r}
+
+sample_plot <- ggplot(snps_summary_table, aes(x=country, y=sample_no, color=region, fill=region, ymax = 150)) + 
+  geom_col() + 
+  theme_classic() +
+  labs(title="Sequenced Pv Genomes per Country",x="Country", y = "Sample Count") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  facet_wrap(~ region, scales = 'free_x') +
+  theme(legend.position = "none") +
+  geom_text(aes(label=sample_no), position=position_dodge(width=0.9), vjust=-0.25)
+
+sample_plot
+
+ggsave("Pv_samples_per_country.svg",sample_plot)
+
+```
+

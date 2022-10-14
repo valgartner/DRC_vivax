@@ -1,0 +1,144 @@
+---
+title: "Global vivax PCA"
+output:
+  pdf_document: default
+  html_document: default
+---
+Tutorial: 
+https://www.biostars.org/p/335605/
+
+```{r message=FALSE}
+library(tidyverse)
+library(pca3d)
+library(scatterplot3d)
+library(plotly)
+```
+
+
+
+
+```{r}
+options(scipen=100, digits=3)
+
+
+eigenvec <- read.table('downsampled-min_filt_no-singletons.recode.pruned.genotypes.plink.eigenvec', header = FALSE, skip=0, sep = ' ')
+
+rownames(eigenvec) <- eigenvec[,2]
+eigenvec <- eigenvec[,3:ncol(eigenvec)]
+colnames(eigenvec) <- paste('Principal Component ', c(1:20), sep = '')
+
+# percentage of variance explained
+# https://speciationgenomics.github.io/pca/
+eigenval <- scan("downsampled-min_filt_no-singletons.recode.pruned.genotypes.plink.eigenval")
+pve <- data.frame(PC = 1:20, pve = eigenval/sum(eigenval)*100)
+total_pve <- data.frame(PC = 1:20, cumulative_pve <- cumsum(pve$pve))
+
+scree_plot <- ggplot(pve, aes(x=PC, y=pve)) + 
+  geom_bar(stat="identity") + 
+  geom_text(size = 3, aes(label=paste(round(pve, digits = 1),'%', sep="")), position=position_dodge(width=0.9), vjust=-0.25) +
+  ylab("Percentage variance explained") + theme_light() + 
+  ggtitle("Percentage of variance explained by each principal component")  +
+  geom_line(total_pve, mapping = aes(x=PC, y=cumulative_pve), color="blue")
+scree_plot
+
+
+```
+
+
+```{r}
+# population info - use popmap file instead of PED file - the PED file is huge and take a long time to load 
+pop_table <- read.table('popmap.txt', header = F, skip=0, sep = '\t')
+
+col_names <- c("Individual", "Country")
+names(pop_table) <- col_names
+
+
+#eigenvec
+
+PED <- pop_table[which(pop_table$Individual %in% rownames(eigenvec)), ]
+PED <- PED[match(rownames(eigenvec), PED$Individual),]
+all(PED$Individual.ID == rownames(eigenvec)) == TRUE
+
+
+# generate PCA bi-plots
+project.pca <- eigenvec
+project.pca
+
+```
+
+
+```{r}
+#duplicate the table
+project.pca2 <- project.pca
+#move rownames back to column
+project.pca2 <- rownames_to_column(project.pca2)
+project.pca2 <- rename(project.pca2, Individual = rowname)
+project.pca2
+```
+
+Set up colors using guide from:
+https://www.stat.ubc.ca/~jenny/STAT545A/block17_colorsGgplot2Qualitative.html
+```{r}
+#colors
+#gdURL <- "http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/data/gapminderCountryColors.txt"
+#countryColors <- read.delim(file = gdURL, as.is = 3) # protect color
+#str(countryColors)
+
+color_file <- 'CountryColors3.txt'
+
+country_colors <- read.delim(file = color_file, as.is = 2) # protect color
+
+full_data_table <- left_join(project.pca2, pop_table, by="Individual")
+full_data_table <- left_join(full_data_table, country_colors, by="Country")
+
+jcolor_table <- full_data_table %>% distinct(Country, Color )%>% select(Country, Color)
+jcolors <- jcolor_table$Color
+names(jcolors) <- jcolor_table$Country
+#head(jcolors, n=100)
+```
+
+Plot PC 1&2 by country
+```{r}
+x_val_1 <- paste('First component (', round(pve$pve[1], digits=1), "%)", sep='')
+y_val_2 <- paste('Second component (', round(pve$pve[2], digits=1), "%)", sep='')
+
+#have to make color and fill into factors, see example 2 here titled:
+# "# You can set color and fill aesthetics at the same time"
+#https://ggplot2.tidyverse.org/reference/scale_manual.html
+
+tidy_plot_country <- ggplot(full_data_table,aes(x=`Principal Component 1`,y=`Principal Component 2`,colour = factor(Country), fill = factor(Country))) +
+  #geom_point(shape = 21, stroke = 2, alpha=0.6, size=1) +
+  geom_jitter(alpha=0.8, size=5) +
+  scale_color_manual(values = jcolors, aesthetics = c("color", "fill")) +
+  labs(title="Global P. vivax diversity",x=x_val_1, y = y_val_2) +
+  theme_classic(base_size=14) +
+  theme(legend.title=element_blank())
+tidy_plot_country
+
+#ggsave("global-pc1_2.svg", tidy_plot_country)
+
+```
+
+```{r}
+tidy_plot_country +
+  facet_wrap(~ Region)
+```
+
+
+
+```{r}
+x_val_1 <- paste('First component (', round(pve$pve[1], digits=1), "%)", sep='')
+y_val_3 <- paste('Third component (', round(pve$pve[3], digits=1), "%)", sep='')
+
+tidy_plot_country2 <- tidy_plot_country <- ggplot(full_data_table,aes(x=`Principal Component 1`,y=`Principal Component 3`,colour = factor(Country), fill = factor(Country))) +
+  geom_point(alpha=0.3, size=5) +
+  labs(title="Principal Components 1 & 3 by region",x=x_val_1, y = y_val_3) +
+  scale_discrete_manual(values = jcolors, aesthetics = c("color", "fill")) +
+  theme_classic() 
+tidy_plot_country2
+```
+
+
+```{r}
+plot_ly(x=full_data_table$`Principal Component 1`, y=full_data_table$`Principal Component 2`, z=full_data_table$`Principal Component 3`, type="scatter3d", mode="markers", color=full_data_table$Country)
+```

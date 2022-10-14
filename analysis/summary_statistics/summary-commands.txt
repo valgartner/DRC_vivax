@@ -1,0 +1,23 @@
+# count the number of private alleles in each vcf
+for i in *_biallelic_snps_only_min-ac1.vcf.gz ; do echo ${i%%_*} ; zcat ${i} | grep -v "^#" |wc -l ; done >> biallelic-private-alleles-summary.txt
+
+# convert to column format
+awk '{printf "%s%s",$0,NR%2?"\t":RS}' biallelic-private-alleles-summary.txt > biallelic-private-alleles.txt
+# https://stackoverflow.com/questions/14067523/moving-every-second-row-to-a-new-column-with-awk/14086421#14086421
+
+# count number of segregating sites in the vcf
+for i in *_minfilt_global-subsample.g_masked-rm.recode.chroms-only_chr10-subtel-rm.recode_biallelic_snps_only_min-ac1.vcf.gz ; do echo ${i%%-private_alleles_biallelic-only.vcf.gz} ; zgrep -v 
+"^#" ${i} |wc -l ;  done
+
+# convert to column format
+awk '{printf "%s%s",$0,NR%2?"\t":RS}' per-country-segregating-sites.txt > segregating_sites.txt
+
+
+# make table for sample count per country
+for i in *-accessions.txt ; do echo ${i%%-accessions.txt} ; cat ${i} | wc -l ; done >> sample-count-output.txt
+
+awk '{printf "%s%s",$0,NR%2?"\t":RS}' sample-count-output.txt > sample_counts.txt
+
+
+# then i added headers manually and loaded in R for visualization
+

@@ -1,0 +1,20 @@
+# create a file map for all Q matrices
+#for i in *.Q ; do j=$i ; i=${i##*.pruned.genotypes_} ; echo -e "k-${i%%.Q}\t${i%%_[0-9]*.Q}\t${j}" ; done > filemap.txt
+for i in *.Q ; do j=$i ; i=${i##*.pruned.genotypes.} ; echo -e "k-${i%%.Q}\t${i%%_[0-9]*.Q}\t${j}" ; done > filemap.txt
+
+
+# pop order file
+awk '{print $2}' popmap.txt |sort|uniq > pop_order.txt
+##### then manually arrange the order to represent left to right on map	
+
+#make ind2pop file
+awk '{print $2}' popmap.txt > ind2pop.txt
+
+
+# example pong command
+# pong -m filemap.txt -i ind2pop.txt -n pop_order.txt -v
+
+# for CV error:
+for i in *.stdout ; do grep -h "CV error" ${i} >> overall_cv_summary.txt ; done
+awk '{print $3"\t"$4}' overall_cv_summary.txt | tr -d '():K=' >> cv_summary_table.txt
+# to load in r and make boxplots
