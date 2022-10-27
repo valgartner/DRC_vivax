@@ -14,21 +14,21 @@ Below is an outline of what tools and commands were used for this work.
 
 Determining MOI
 
-1.  generate two vcfs: one polyclone with a max of 3 clones, and one a gvcf which indicates the level of coverage at each base.  The commands to generate these are in coalescent/bin/make-fastas-6.sh
+1.  generate two vcfs: one polyclone with a max of 3 clones, and one a gvcf which indicates the level of coverage at each base.  The commands to generate these are in `make-fastas-6.sh`
 ```
 octopus -I \${DEDUP_BAM} -R ${REF} -T LT635626 -o api.poly3.vcf.gz --annotations AD -C polyclone  --max-clones 3 --threads 16 --sequence-error-model PCR
 octopus -I \${DEDUP_BAM} -R ${REF} -T LT635626 -o api.g.vcf.gz --annotations AD --refcall POSITIONAL --threads 16 --sequence-error-model PCR
 ```
-2. Then there is a script (with a not-very-descriptive name, which is why I couldn't find it) called coalescent/bin/check-accessions.py that scans the genomes2 directory that contains directories/files like ERR12355/api.poly3.vcf.gz .  It produced the simple text file genomes2/mono-0.9.txt  with lines like
+2. `check-accessions.py` scans the genomes2 directory that contains directories/files like ERR12355/api.poly3.vcf.gz .  It produced the simple text file genomes2/mono-0.9.txt  with lines like
 ```
 ERR773745       OK
 ERR773746       PolyClonal
 ERR773747       NoGVCF
 ERR773748       OK
 ```
-The 0.9 indicates that a site is considered homozygous if the major allele frequency is 0.9. I'm pretty sure you would run it like `check-accesions.py --cutoff 0.9 --allowed-het-sites=1 > mono-0.9.txt`
+The 0.9 indicates that a site is considered homozygous if the major allele frequency is 0.9. Run it like `check-accesions.py --cutoff 0.9 --allowed-het-sites=1 > mono-0.9.txt`
 
-Then I created the list of accessions with `grep OK mono-0.9.txt | cut -f1 > mono-0.9-accs.txt`
+Create the list of accessions with `grep OK mono-0.9.txt | cut -f1 > mono-0.9-accs.txt`
 
 Accessions with no MOI data were included by default.
 
@@ -137,11 +137,19 @@ Starting with gvcf file (NOT SNPs only file)
 
 ## Table 1: Summary Statistics
 
+<mark>commands to pull out biallelic SNPs for each population</mark>
+
+
+`for i in *_minfilt_global-subsample.g_masked-rm.recode.chroms-only_chr10-subtel-rm.recode_biallelic_snps_only_min-ac1.vcf.gz ; do ./segregating-sites-from-vcf.py --vcf ${i} ; done`
+
 Create window bedfile
+
 `bedtools makewindows -b PVP01.chroms.bed -w 1000 > PVP01.chroms_1kb-windows.bed`
 
-- run pixy script
-- summarize commands
+For each population:
+
+`./run-pixy-bedfile.sh
+
 
 Visualize using `visualize-private-alleles.Rmd`
 
@@ -152,12 +160,15 @@ Visualize using `visualize-private-alleles.Rmd`
 Fastq > align to PvP01 reference > remove optical duplicates > ${BAM}.dedup.bam
 
 Pull out region surrounding PvDBP
-`samtools view -bh file.dedup.bam "LT635617:970474-998688" > DBP-EXTRA-extended_file.dedup.bam`
+
+- `samtools view -bh file.dedup.bam "LT635617:970474-998688" > DBP-EXTRA-extended_file.dedup.bam`
 
 Sort the BAM
-`samtools sort -o file.dedup.sorted.bam file.dedup.bam`
+
+- `samtools sort -o file.dedup.sorted.bam file.dedup.bam`
 
 Use [bedtools genomecov](https://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html) to find the per-site read depth
-`bedtools genomecov -d -ibam file.dedup.sorted.bam > file.dedup.sorted.persitedepth.bedgraph`
+
+- `bedtools genomecov -d -ibam file.dedup.sorted.bam > file.dedup.sorted.persitedepth.bedgraph`
 
 Visualize with `coverage-plots.Rmd`

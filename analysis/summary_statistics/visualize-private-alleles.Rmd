@@ -12,16 +12,17 @@ library(gridExtra)
 
 Read in data & join into one table
 ```{r}
-segregating_sites <- read.table('segregating_sites.txt', header=T, skip=0, sep='\t')
+segregating_sites <- read.table('updated_population_seg-sites_count.csv', header=T, skip=0, sep=',')
 private_alleles <- read.table('biallelic-private-alleles.txt', header=T, skip=0, sep='\t')
-
 sample_counts <- read.table('sample_counts.txt', header=T, skip=0, sep='\t')
+
 # add sample counts to one of the tables
-segregating_sites <- left_join(segregating_sites, sample_counts, by="country")
+segregating_sites <- left_join(segregating_sites, sample_counts, by=c("country", "sample_no"))
 
 # combine all the data tables into one summary table
 snps_summary_table <- left_join(private_alleles, segregating_sites, by="country")
 ```
+
 
 
 Create new columns for ratios
@@ -32,9 +33,42 @@ snps_summary_table <- snps_summary_table %>% mutate(private_alleles_per_sample =
 # ratio of private alleles to # of total snps in the population
 snps_summary_table <- snps_summary_table %>% mutate(private_allele_over_S_ratio = private_alleles / segregating_sites)
 
+```
 
+Estimate theta
+https://people.bu.edu/msoren/BI5152013/PGLecture12.pdf (page 2)
+```{r}
+reciprocal <- function(n){
+  recip <- 1/n
+  return(recip)
+}
+
+
+snps_summary_table <- snps_summary_table %>% rowwise %>% mutate(reciprocal_sum = sum(reciprocal(1:sample_no)))
+snps_summary_table <- snps_summary_table %>% mutate(estimate_theta = segregating_sites / reciprocal_sum)
 
 ```
+
+
+Write to table
+```{r}
+write.csv(snps_summary_table, "snps_summary_table.csv", quote=F, col.names=T, row.names = F)
+```
+
+Visualize estimated theta
+```{r}
+theta_plot <- ggplot(snps_summary_table, aes(x=country, y=estimate_theta)) + 
+  geom_point() +
+  theme_classic() +
+  labs(title="Estimated theta (S / sum(1/(1:n)))",x="Country", y = "Estimated value of theta") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  facet_wrap(~ region, scales = 'free_x') +
+  theme(legend.position = "none") +
+  scale_fill_manual(values = c("#000099ff", "#339999ff", "#ff0000ff", "#ff00ffff", "#996633ff")) 
+
+theta_plot
+```
+
 
 Visualize private alleles absolute number per country
 ```{r}
@@ -91,5 +125,30 @@ sample_plot
 
 ggsave("Pv_samples_per_country.svg",sample_plot)
 
+```
+
+
+old v new method of counting S
+```{r}
+s_comparison_table <- read.table('s_calc_change_results.csv', header=T, skip=0, sep=',')
+
+s_comparison_table <- s_comparison_table %>% mutate(difference = old_s - new_s)
+
+```
+
+Visualize the difference in S count
+Old S count = counting all positions within a population that differ from the PvP01 reference allele
+New S count = Old S count - positions where every sample in the population has the alternative allele (no variation within population at the site)
+```{r}
+s_diff_plot <- ggplot(s_comparison_table) +
+  geom_segment( aes(x=reorder(country, desc(country)), xend=country, y=new_s, yend=old_s), color="grey") +
+  geom_point( aes(x=reorder(country, desc(country)), y=new_s), color=rgb(0.2,0.7,0.1,0.5), size=3 ) +
+  geom_point( aes(x=reorder(country, desc(country)), y=old_s), color=rgb(0.7,0.2,0.1,0.5), size=3 ) +
+  coord_flip() +
+  theme_classic() +
+  labs(title="Old (red) vs new (green) count of\nSegregating sites per country",x="Country", y = "S")
+
+
+s_diff_plot
 ```
 
