@@ -1,0 +1,1 @@
+../segregating-sites-from-vcf.py
