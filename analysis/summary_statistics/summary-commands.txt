@@ -6,12 +6,14 @@ awk '{printf "%s%s",$0,NR%2?"\t":RS}' biallelic-private-alleles-summary.txt > bi
 # https://stackoverflow.com/questions/14067523/moving-every-second-row-to-a-new-column-with-awk/14086421#14086421
 
 # count number of segregating sites in the vcf
-for i in *_minfilt_global-subsample.g_masked-rm.recode.chroms-only_chr10-subtel-rm.recode_biallelic_snps_only_min-ac1.vcf.gz ; do echo ${i%%-private_alleles_biallelic-only.vcf.gz} ; zgrep -v 
-"^#" ${i} |wc -l ;  done
+for i in *_minfilt_global-subsample.g_masked-rm.recode.chroms-only_chr10-subtel-rm.recode_biallelic_snps_only_min-ac1.vcf.gz ; do echo ${i%%-private_alleles_biallelic-only.vcf.gz} ; zgrep -v "^#" ${i} |wc -l ;  done > per-country-segregating-sites.txt
+
+# count number of segregating sites that are in every individual in the population (i.e. where everyone in the population has the alt allele relative to the reference but is not different from each other)
+for i in *_minfilt_global-subsample.g_masked-rm.recode.chroms-only_chr10-subtel-rm.recode_biallelic_snps_only_min-ac1.vcf.gz ; do echo ${i%%-private_alleles_biallelic-only.vcf.gz} ; bcftools view --min-af 1 ${i} | zgrep -v "^#" |wc -l ;  done > af-1-sites-to-subtract.txt
 
 # convert to column format
 awk '{printf "%s%s",$0,NR%2?"\t":RS}' per-country-segregating-sites.txt > segregating_sites.txt
-
+awk '{printf "%s%s",$0,NR%2?"\t":RS}' af-1-sites-to-subtract.txt > 
 
 # make table for sample count per country
 for i in *-accessions.txt ; do echo ${i%%-accessions.txt} ; cat ${i} | wc -l ; done >> sample-count-output.txt

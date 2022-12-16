@@ -16,12 +16,12 @@ module load tabix
 set -e
 
 #PvP01 vivax reference genome
-reference=/path/to/PVP01.fasta
+reference=PVP01.fasta
 ref=${reference}
 
 input=$1
 
-RUN_GATK3="java -jar /path/to/GenomeAnalysisTK.jar"
+RUN_GATK3="java -jar GenomeAnalysisTK.jar"
 
 function CombineGVCFs ()
 {

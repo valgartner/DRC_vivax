@@ -7,7 +7,7 @@ module load vcftools
 module load bcftools
 
 NAME=$1
-REF=$2
+REF=PVP01.fa
 set -e
 
 #remove masked regions
