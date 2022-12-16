@@ -36,7 +36,7 @@ NACC=$(cat "${AFILE}" | wc -l)
 
 REF="$2"
 if [ -z "$REF" ] ; then
-  REF=/path/to/PVP01.fa
+  REF=PVP01.fa
 fi
 
 >&2 echo "$AFILE $REF"
@@ -69,7 +69,7 @@ exec > slurm-\${SLURM_JOB_ID}_\${SLURM_ARRAY_TASK_ID}.out 2>&1
 module load samtools
 module load bwa
 module load jdk/1.8.0_45-fasrc01
-PICARD_JAR=/path/to/picard.jar
+PICARD_JAR=picard.jar
 RUN_PICARD="java -jar -Xmx7g \${PICARD_JAR}"
 
 #1. Get the FASTQ
@@ -132,7 +132,7 @@ if [ ! -e bam-deduped ] ; then
 
   #3. Mark Duplicates
   module load jdk/1.8.0_45-fasrc01
-  PICARD_JAR=/path/to/picard.jar
+  PICARD_JAR=picard.jar
   RUN_PICARD="java -jar -Xmx7g \${PICARD_JAR}"
 
   echo "Running MarkDuplicates..."
@@ -152,7 +152,7 @@ rm -rf \${ACC}_1.fastq \${ACC}_2.fastq
 
 #4. Get GVCF
 module load jdk/1.8.0_45-fasrc01 #load java module again just in case this script is being rerun after the dedup bam is made
-GATK3_JAR=/path/to/GenomeAnalysisTK.jar
+GATK3_JAR=GenomeAnalysisTK.jar
 RUN_GATK3="java -jar \${GATK3_JAR}"
 
 # initial variant processing, using 4 cores. Note that we call full variants here, not the GVCF (which is what we want as the final output)
@@ -244,12 +244,10 @@ if [ -e "\${DEDUP_BAM}" ] ; then
 fi
 
 
-rm -f ${ACC}.dedup.bam \${ACC}.dedup.bam.bai
 rm -rf \${ACC}-raw_snps.vcf \${ACC}-raw_indels.vcf \${ACC}-recal_reads.bam \${ACC}-recal_data.table 
 rm -rf \${ACC}-post_recal_data.table \${ACC}-filtered_snps.vcf \${ACC}-filtered_indels.vcf
 rm -rf \${ACC}-filtered_indels.vcf.idx \${ACC}-filtered_snps.vcf.idx \${ACC}-raw_indels.vcf.idx 
 rm -rf \${ACC}-raw_snps.vcf.idx \${ACC}-raw_variants3.vcf.idx \${ACC}-raw_variants2.vcf.idx metrics.txt \${ACC}-recal_reads.bai
-rm -rf bam-deduped
 echo "clean up large intermediate files: DONE!"
 
 touch done
