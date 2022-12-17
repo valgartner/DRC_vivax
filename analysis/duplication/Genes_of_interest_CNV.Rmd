@@ -1,0 +1,121 @@
+---
+title: "African CNV"
+output: html_document
+date: "2022-11-16"
+---
+
+```{r setup, message=FALSE}
+library(tidyverse)
+```
+
+Read in info files
+```{r}
+popmap <- read.table("africa_popmap.txt", header=F, skip=0, sep="\t")
+popmap <- dplyr::rename(popmap, Accession = V1, Country = V2, Region = V3)
+
+coordinates <- read.table("genes_of_interest_coords.txt", header=T, quote="#", sep="\t")
+
+
+# add info for where the data starts and ends relative to the gene location (start and end refers to gene coordinates)
+coordinates <- coordinates %>% 
+  mutate(depth_start = start - 10000) %>%
+  mutate(depth_end = end + 10000)
+
+#coordinates$Name
+
+#coordinates %>% dplyr::filter(Name == "MSP3.10")
+
+```
+
+
+DBP
+```{r}
+DBP_coordinates <- coordinates %>%
+  dplyr::filter(Name == "DBP")
+
+DBP_coverage <- read.table("DBP_merged.bedgraph", header=T, skip=0, sep="\t")
+```
+
+find average coverage of non-genic areas
+```{r}
+DBP_upstream <- DBP_coverage %>%
+  filter(between(pos, DBP_coordinates$depth_start, DBP_coordinates$start)) 
+  #filter(between(pos, 975474, 980433))
+
+DBP_downstream <- DBP_coverage %>%
+  filter(between(pos, DBP_coordinates$end, DBP_coordinates$depth_end))
+  #filter(between(pos, 988203, 992688))
+
+DBP_non_genic <- rbind(DBP_upstream, DBP_downstream)
+
+DBP_non_genic_mean <- DBP_non_genic %>%
+  summarise(across(SANRU:SRR570031, mean))
+
+```
+
+Find average coverage in genic areas
+```{r}
+DBP_gene <- DBP_coverage %>%
+  filter(between(pos, DBP_coordinates$start, DBP_coordinates$end))
+  #filter(between(pos, 980433,988203))
+
+DBP_genic_mean <- DBP_gene %>%
+  summarise(across(SANRU:SRR570031, mean))
+```
+
+Divide average coverage levels
+```{r}
+
+DBP_summary <- cbind(round(DBP_genic_mean/DBP_non_genic_mean, 2)) #2 = round to two digits
+
+
+# Pivot to long format
+non_genic_mean_long <- DBP_non_genic_mean %>% pivot_longer(everything(), names_to = "Accession", values_to = "Non-Genic_Coverage")
+genic_mean_long <- DBP_genic_mean %>% pivot_longer(everything(), names_to = "Accession", values_to = "Genic_Coverage")
+DBP_summary_long <- DBP_summary %>% pivot_longer(everything(), names_to = "Accession", values_to = "Coverage_Ratio")
+
+DBP_summary_long <- left_join(DBP_summary_long, non_genic_mean_long, by="Accession")
+DBP_summary_long <- left_join(DBP_summary_long, genic_mean_long, by="Accession")
+
+# join with pop file
+DBP_summary_long <- left_join(DBP_summary_long, popmap, by="Accession")
+
+DBP_summary_country <- DBP_summary_long %>% 
+  group_by(Country) %>%
+  summarize(n= n(), mean_coverage_ratio = mean(Coverage_Ratio), stdev_coverage_ratio = sd(Coverage_Ratio))
+
+```
+
+Visualize
+```{r}
+#DBP_summary_long$Country <- factor(DBP_summary_long$Country, levels=c("Mauritania", "DRC", "Uganda", "Sudan", "Eritrea", "Ethiopia", "Madagascar"))
+
+DBP_plot_country <- ggplot(DBP_summary_long, aes(x=Country, y=Coverage_Ratio))+ 
+  geom_boxplot() +
+  geom_jitter() +
+  theme_classic(base_size = 18) +
+  #labs(title="DBP CNV in Africa",x="Population", y = "Genic / non-genic read depth") +
+  labs(x="Population", y = "Gene / non-genic read depth") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  scale_x_discrete(limits = c("Mauritania", "DRC", "Uganda", "Sudan", "Eritrea", "Ethiopia", "Madagascar")) #+
+  #scale_fill_manual(values=c("#999999", "#E69F00", "#56B4E9"))
+
+DBP_plot_country
+
+ggsave("DBP-CNV-per-country_large-font.png", DBP_plot_country)
+```
+
+Plot by region
+```{r}
+DBP_plot_region <- ggplot(DBP_summary_long, aes(x=Region, y=Coverage_Ratio))+ 
+  geom_boxplot() +
+  geom_jitter() +
+  theme_classic() +
+  labs(title="DBP CNV in Africa",x="Population", y = "Genic read depth / non-genic read depth") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  scale_x_discrete(limits = c("East", "Central", "West", "Island"))
+
+DBP_plot_region
+
+```
+
