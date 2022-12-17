@@ -1,0 +1,101 @@
+---
+title: "Visualize Pi"
+output: html_document
+date: "2022-11-15"
+---
+
+```{r setup, message=FALSE}
+library(tidyverse)
+library(ggrepel)
+```
+
+Read in files
+```{r}
+# genome average values
+global_genome_ave <- read.table("updated-by-region-popfile_allchroms_1kb-windows_pixy_pi.txt_genome-average-pi.txt", 
+                         header=T, skip=0, sep='\t')
+cafrica_genome_ave <- read.table("centralafrica-popfile_allchroms_1kb-windows_pixy_pi.txt_genome-average-pi.txt", 
+                      header=T, skip=0, sep='\t')
+eafrica_genome_ave <- read.table("eastafrica-popfile_allchroms_1kb-windows_pixy_pi.txt_genome-average-pi.txt", 
+                      header=T, skip=0, sep='\t')
+madagascar_genome_ave <- read.table("madagascar-popfile_allchroms_1kb-windows_pixy_pi.txt_genome-average-pi.txt", 
+                             header=T, skip=0, sep='\t')
+wafrica_genome_ave <- read.table("westafrica-popfile_allchroms_1kb-windows_pixy_pi.txt_genome-average-pi.txt", 
+                          header=T, skip=0, sep='\t')
+
+# chromosome average values
+global_chr <- read.table("updated-by-region-popfile_allchroms_1kb-windows_pixy_pi.txt_chromosome-average-pi.txt", 
+                         header=T, skip=0, sep='\t')
+cafrica_chr <- read.table("centralafrica-popfile_allchroms_1kb-windows_pixy_pi.txt_chromosome-average-pi.txt", 
+                      header=T, skip=0, sep='\t')
+eafrica_chr <- read.table("eastafrica-popfile_allchroms_1kb-windows_pixy_pi.txt_chromosome-average-pi.txt", 
+                      header=T, skip=0, sep='\t')
+madagascar_chr <- read.table("madagascar-popfile_allchroms_1kb-windows_pixy_pi.txt_chromosome-average-pi.txt", 
+                             header=T, skip=0, sep='\t')
+wafrica_chr <- read.table("westafrica-popfile_allchroms_1kb-windows_pixy_pi.txt_chromosome-average-pi.txt", 
+                          header=T, skip=0, sep='\t')
+
+
+# make joined summary tables
+genome_ave_summary <- rbind(global_genome_ave, cafrica_genome_ave, eafrica_genome_ave, madagascar_genome_ave, 
+                            wafrica_genome_ave)
+chr_ave_summary <- rbind(global_chr, cafrica_chr, eafrica_chr, madagascar_chr, wafrica_chr)
+
+# average by chromosome
+chr_ave_summary_wide <- chr_ave_summary %>% spread(pop, chr_avg_pi)
+write.csv(chr_ave_summary_wide, "avg_pi_by_chr.csv", quote=F, col.names=T, row.names = F)
+
+
+```
+
+
+```{r}
+genome_ave_plot <- ggplot(global_genome_ave, aes(x=pop, y=genome_avg_pi))+ 
+  geom_point(size=5) +
+  theme_classic() +
+  labs(title="title",x="Population", y = "Genome-averaged Pi Value") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) 
+
+genome_ave_plot
+```
+
+```{r}
+# order:
+# Africa, Americas, Easia, Sasia, Seasia, centralafrica, eastafrica, Madagascar, westafrica
+continents <- c("Africa", "Americas", "Asia", "Asia", "Asia", "Africa\nRegions", "Africa\nRegions", "Africa\nRegions", "Africa\nRegions")
+pop_sizes <- c(78, 205, 247,92,74,4,61,2,11)
+
+genome_ave_summary$continents <- continents
+genome_ave_summary$pop_size <- pop_sizes
+
+
+continent_genome_ave_plot <- ggplot(genome_ave_summary, aes(x=continents, y=genome_avg_pi, 
+                                                            label=paste(pop, "\n(", pop_size, " samples)", sep=''), color=continents)) + 
+  geom_jitter(aes(size=pop_size), position = position_jitter(seed = 2)) +
+  #geom_text(position = position_jitter(seed = 2), vjust=-1.25) +
+  theme_classic() +
+  labs(title="",x="Population", y = "Genome-averaged Pi Value") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  #guides(alpha = "none", color = "none") +
+  geom_text_repel(
+    size = 4, # font size in the text labels
+    point.padding = 0, # additional padding around each point
+    #min.segment.length = 0, # draw all line segments
+    #max.time = 1, max.iter = 1e5, # stop after 1 second, or after 100,000 iterations
+    #box.padding = 0.5 # additional padding around each text label
+    ) +
+  theme(legend.position = "none")
+
+
+# +
+  #scale_fill_continuous(values = c("#000099ff", "#339999ff", "#ff0000ff", "#ff00ffff", "#996633ff"))
+
+continent_genome_ave_plot
+
+#ggsave("genome-wide-pi-with-subregions.svg", continent_genome_ave_plot)
+```
+
+```{r}
+
+```
+
