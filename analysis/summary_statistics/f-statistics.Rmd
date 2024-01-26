@@ -1,0 +1,153 @@
+---
+title: "DRC-Admixtools"
+output: html_document
+date: "2023-04-14"
+---
+
+```{r}
+library(admixtools)
+library(tidyverse)
+library(ggmap)
+library(maptools)
+library(maps)
+```
+
+Update fam file 
+```{r}
+fam_orig = read.table("Pruned/pv-subsample_w-pvl.pruned.genotypes.fam", sep=" ", header=F)
+fam <- fam_orig
+fam <- rename(fam, individual = V2)
+
+#grouped_fam <- fam %>%
+ # group_by(population)
+#grouped_fam %>% summarize(n = n())
+
+popmap = read.table("minfilt_pvl_popmap.txt", sep="\t", header=F)
+popmap <- rename(popmap, individual = V1, population = V2)
+
+# join tables and drop V1 (previous "family" column)
+fam <- left_join(fam, popmap, by="individual") %>%
+  relocate(population, .before = V1) %>%
+  dplyr::select(!V1)
+
+# make a copy of original file
+#write.table(fam_orig, "Pruned/pv-subsample_w-pvl.pruned.genotypes.fam_original", quote=F, sep=" ", col.names=F, row.names=F)
+
+# write updated fam file to file
+#write.table(fam, "Pruned/pv-subsample_w-pvl.pruned.genotypes.fam", quote=F, sep=" ", col.names=F, row.names=F)
+
+```
+
+
+
+
+Calculate F2 statistics
+https://uqrmaie1.github.io/admixtools/articles/admixtools.html#f2-in-admixtools-2-1
+```{r}
+afs = plink_to_afs("Pruned/pv-subsample_w-pvl.pruned.genotypes")
+
+prefix = 'Pruned/pv-subsample_w-pvl.pruned.genotypes'
+my_f2_dir = 'f2'
+
+extract_f2(prefix, my_f2_dir, auto_only = F, maxmiss=0.05) # https://uqrmaie1.github.io/admixtools/reference/extract_f2.html
+```
+
+```{r}
+f2_blocks = f2_from_precomp(my_f2_dir, afprod = TRUE)
+```
+
+F4 statistics
+https://uqrmaie1.github.io/admixtools/articles/recipes.html
+
+"f4-Values inferred under the test relationship (Plasmodium cynomolgi, Ebro-1944; Papua New Guinea [PNG], Y), where Y iterates through the geographic sampling locations of our included strains."
+```{r}
+#data = prefix
+outfile = 'f4.txt'
+pop1 = 'pvl' # outgroup
+pop2 = 'DRC'
+pop3 = 'PapuaNewGuinea' #c('PapuaNewGuinea', 'Colombia', 'Cambodia', 'Pakistan', 'Mauritania')
+pop4 = c("Brazil", "Vietnam", "Cambodia", "Indonesia", "SriLanka", "India", "Malaysia", "Thailand", "Laos", "Ethiopia", "Myanmar", "Madagascar", "China", "Uganda", "Eritrea", "Bangladesh", "Sudan", "Afghanistan", "Guyana", "Philippines", "Pakistan", "Colombia", "Mauritania", "Peru", "Panama", "Mexico", "Nicaragua", "NorthKorea")
+
+
+combinations = tibble(pop1 = pop1, pop2 = pop2, pop3 = pop3, pop4 = pop4)
+
+out = qpdstat(f2_blocks, combinations) # https://uqrmaie1.github.io/admixtools/reference/qpdstat.html
+
+#write_tsv(out, outfile)
+```
+
+D4 statistics
+```{r}
+d_outfile = 'D-stats.txt'
+
+d_out = qpdstat(f2_blocks, combinations, f4mode = FALSE)
+
+#write_tsv(d_out, d_outfile)
+```
+
+P value adjustment from: https://github.com/altinisik/UpperMesopotamia/blob/4c3fefc79aa96cc58d6744a11af2f7989e775ecb/scripts/figure4.R
+```{r}
+##p-value adjustment function
+adjust_z <- function(df, method = "BH"){
+  df[["p"]] <- 2*pnorm(-abs(df$z),lower.tail = T)
+  df[["p.adj"]] <- p.adjust(df[["p"]],method=method,n=length(df[["p"]]))
+  df[["z.adj"]]  <-  qnorm(df[["p.adj"]]/2, lower.tail = F) * sign(df[["z"]])  
+  print(length(df[["p"]]))
+  return(df)
+}
+
+f4_out_adj <- adjust_z(out)
+d_out_adj <- adjust_z(d_out)
+
+```
+
+
+visualize
+```{r}
+f4 <- out %>%
+  mutate(sig=as.factor(abs(z)>3))
+
+
+f4 <- f4[order(f4$pop4), ]
+f4$region <- c("Sasia", "Sasia", "Americas", "Easia", "Easia", "Americas", "Africa", "Africa", "Americas", "Sasia", "Seasia", "Easia", "Africa", "Seasia", "Africa", "Americas", "Easia", "Americas", "Easia", "Sasia", "Americas", "Americas", "Seasia", "Sasia", "Africa", "Easia", "Africa", "Easia")
+
+
+
+f4_plot <- ggplot(f4, aes(x=pop4, y=est, color=sig)) + 
+  geom_errorbar(aes(ymin=est-3*se, ymax=est+3*se), width=.1) +
+  geom_point() +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  scale_color_manual("|Z| > 3", values = c("#707070","#19bf53")) +
+  labs(title="F4: (Pvl, DRC; PNG, test)", x="test population", y="F4 estimate") +
+  facet_wrap(~region, scales="free_x", nrow=1)
+
+f4_plot
+ggsave("f4_plot.svg", f4_plot, dpi=300, height = 3, width=9, units="in")
+
+
+# ggplot(f4, aes(x=pop4, y=z, color=sig)) + 
+#   #geom_errorbar(aes(ymin=est-se, ymax=est+se), width=.1) +
+#   geom_point() +
+#   theme_classic() +
+#   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+#   labs(title="Z scores for F4: (Pvl, DRC; PNG, test)", x="test population", y="|Z| score", color="|Z| > 3") +
+#   facet_wrap(~region, scales="free_x")
+
+```
+map
+https://www.r-bloggers.com/2013/04/r-beginners-plotting-locations-on-to-a-world-map/
+
+```{r}
+map.world <- map_data("world")
+map.world
+
+```
+
+other links
+https://www.sharpsightlabs.com/blog/map-talent-competitiveness/
+^^^^ Recode country names   
+
+https://rstudio-pubs-static.s3.amazonaws.com/203968_e526edca4a7f425d999ae3bc44cfa089.html
+https://stackoverflow.com/questions/62867888/spatial-visualization-using-country-names-r
+https://stackoverflow.com/questions/44642408/labelling-points-on-world-map-in-ggplot2

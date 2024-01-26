@@ -1,4 +1,5 @@
-This repository contains code and steps used for investigating *Plasmodium vivax* evolutionary history in central Africa using whole genome sequencing data. Results of this work will be available on bioRxiv soon.
+This repository contains code and steps used for investigating *Plasmodium vivax* evolutionary history in central Africa using whole genome sequencing data. This work is now published in Malaria Journal: [doi.org/10.1186/s12936-024-04852-y](https://doi.org/10.1186/s12936-024-04852-y)
+
 
 # *P. vivax* Sample Data
 
