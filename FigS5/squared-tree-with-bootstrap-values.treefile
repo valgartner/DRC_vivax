@@ -1,0 +1,321 @@
+#NEXUS
+begin taxa;
+	dimensions ntax=219;
+	taxlabels
+	ERR018932[&Country="Brazil",Region="Americas",Country-Taxon="Brazil-ERR018932"]
+	ERR019040[&Country="Brazil",Region="Americas",Country-Taxon="Brazil-ERR019040"]
+	ERR021981[&Country="Vietnam",Region="Easia",Country-Taxon="Vietnam-ERR021981"]
+	ERR021982[&Country="Vietnam",Region="Easia",Country-Taxon="Vietnam-ERR021982"]
+	ERR021983[&Country="Vietnam",Region="Easia",Country-Taxon="Vietnam-ERR021983"]
+	ERR022864[&Country="PapuaNewGuinea",Region="SEAsia",Country-Taxon="PapuaNewGuinea-ERR022864"]
+	ERR022866[&Country="Vietnam",Region="Easia",Country-Taxon="Vietnam-ERR022866"]
+	ERR023161[&Country="Vietnam",Region="Easia",Country-Taxon="Vietnam-ERR023161"]
+	ERR034096[&Country="Indonesia",Region="SEAsia",Country-Taxon="Indonesia-ERR034096"]
+	ERR054081[&Country="SriLanka",Region="Sasia",Country-Taxon="SriLanka-ERR054081"]
+	ERR054087[&Country="India",Region="Sasia",Country-Taxon="India-ERR054087"]
+	ERR1106843[&Country="Malaysia",Region="SEAsia",Country-Taxon="Malaysia-ERR1106843"]
+	ERR1138857[&Country="Malaysia",Region="SEAsia",Country-Taxon="Malaysia-ERR1138857"]
+	ERR1138858[&Country="Malaysia",Region="SEAsia",Country-Taxon="Malaysia-ERR1138858"]
+	ERR1138870[&Country="Malaysia",Region="SEAsia",Country-Taxon="Malaysia-ERR1138870"]
+	ERR1138871[&Country="Malaysia",Region="SEAsia",Country-Taxon="Malaysia-ERR1138871"]
+	ERR1138872[&Country="Malaysia",Region="SEAsia",Country-Taxon="Malaysia-ERR1138872"]
+	ERR1475355[&Country="Thailand",Region="Easia",Country-Taxon="Thailand-ERR1475355"]
+	ERR1475398[&Country="Malaysia",Region="SEAsia",Country-Taxon="Malaysia-ERR1475398"]
+	ERR1475434[&Country="Malaysia",Region="SEAsia",Country-Taxon="Malaysia-ERR1475434"]
+	ERR171580[&Country="Vietnam",Region="Easia",Country-Taxon="Vietnam-ERR171580"]
+	ERR175494[&Country="Vietnam",Region="Easia",Country-Taxon="Vietnam-ERR175494"]
+	ERR175552[&Country="PapuaNewGuinea",Region="SEAsia",Country-Taxon="PapuaNewGuinea-ERR175552"]
+	ERR175557[&Country="PapuaNewGuinea",Region="SEAsia",Country-Taxon="PapuaNewGuinea-ERR175557"]
+	ERR211565[&Country="Vietnam",Region="Easia",Country-Taxon="Vietnam-ERR211565"]
+	ERR216469[&Country="PapuaNewGuinea",Region="SEAsia",Country-Taxon="PapuaNewGuinea-ERR216469"]
+	ERR216527[&Country="Vietnam",Region="Easia",Country-Taxon="Vietnam-ERR216527"]
+	ERR221486[&Country="Laos",Region="Easia",Country-Taxon="Laos-ERR221486"]
+	ERR2678996[&Country="Ethiopia",Region="Africa",Country-Taxon="Ethiopia-ERR2678996"]
+	ERR2678998[&Country="Ethiopia",Region="Africa",Country-Taxon="Ethiopia-ERR2678998"]
+	ERR2678999[&Country="Ethiopia",Region="Africa",Country-Taxon="Ethiopia-ERR2678999"]
+	ERR2679000[&Country="Ethiopia",Region="Africa",Country-Taxon="Ethiopia-ERR2679000"]
+	ERR2679003[&Country="Ethiopia",Region="Africa",Country-Taxon="Ethiopia-ERR2679003"]
+	ERR2679004[&Country="Ethiopia",Region="Africa",Country-Taxon="Ethiopia-ERR2679004"]
+	ERR2679005[&Country="Ethiopia",Region="Africa",Country-Taxon="Ethiopia-ERR2679005"]
+	ERR2679008[&Country="Ethiopia",Region="Africa",Country-Taxon="Ethiopia-ERR2679008"]
+	ERR337607[&Country="Thailand",Region="Easia",Country-Taxon="Thailand-ERR337607"]
+	ERR337611[&Country="Thailand",Region="Easia",Country-Taxon="Thailand-ERR337611"]
+	ERR337616[&Country="Thailand",Region="Easia",Country-Taxon="Thailand-ERR337616"]
+	ERR337617[&Country="Thailand",Region="Easia",Country-Taxon="Thailand-ERR337617"]
+	ERR337624[&Country="Indonesia",Region="SEAsia",Country-Taxon="Indonesia-ERR337624"]
+	ERR337625[&Country="Thailand",Region="Easia",Country-Taxon="Thailand-ERR337625"]
+	ERR337630[&Country="Indonesia",Region="SEAsia",Country-Taxon="Indonesia-ERR337630"]
+	ERR351949[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-ERR351949"]
+	ERR351950[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-ERR351950"]
+	ERR351952[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-ERR351952"]
+	ERR351955[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-ERR351955"]
+	ERR351956[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-ERR351956"]
+	ERR388796[&Country="Vietnam",Region="Easia",Country-Taxon="Vietnam-ERR388796"]
+	ERR417393[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-ERR417393"]
+	ERR417398[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-ERR417398"]
+	ERR417399[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-ERR417399"]
+	ERR426037[&Country="Laos",Region="Easia",Country-Taxon="Laos-ERR426037"]
+	ERR490350[&Country="Madagascar",Region="Africa",Country-Taxon="Madagascar-ERR490350"]
+	ERR527337[&Country="Malaysia",Region="SEAsia",Country-Taxon="Malaysia-ERR527337"]
+	ERR527347[&Country="China",Region="Easia",Country-Taxon="China-ERR527347"]
+	ERR527356[&Country="Thailand",Region="Easia",Country-Taxon="Thailand-ERR527356"]
+	ERR527363[&Country="Malaysia",Region="SEAsia",Country-Taxon="Malaysia-ERR527363"]
+	ERR527366[&Country="Thailand",Region="Easia",Country-Taxon="Thailand-ERR527366"]
+	ERR527371[&Country="Thailand",Region="Easia",Country-Taxon="Thailand-ERR527371"]
+	ERR527373[&Country="Indonesia",Region="SEAsia",Country-Taxon="Indonesia-ERR527373"]
+	ERR527383[&Country="Thailand",Region="Easia",Country-Taxon="Thailand-ERR527383"]
+	ERR527453[&Country="PapuaNewGuinea",Region="SEAsia",Country-Taxon="PapuaNewGuinea-ERR527453"]
+	ERR527467[&Country="PapuaNewGuinea",Region="SEAsia",Country-Taxon="PapuaNewGuinea-ERR527467"]
+	ERR527468[&Country="PapuaNewGuinea",Region="SEAsia",Country-Taxon="PapuaNewGuinea-ERR527468"]
+	ERR5740703[&Country="Uganda",Region="Africa",Country-Taxon="Uganda-ERR5740703"]
+	ERR5740704[&Country="Eritrea",Region="Africa",Country-Taxon="Eritrea-ERR5740704"]
+	ERR5740705[&Country="Uganda",Region="Africa",Country-Taxon="Uganda-ERR5740705"]
+	ERR5740706[&Country="Uganda",Region="Africa",Country-Taxon="Uganda-ERR5740706"]
+	ERR5740707[&Country="Bangladesh",Region="Sasia",Country-Taxon="Bangladesh-ERR5740707"]
+	ERR5740712[&Country="Eritrea",Region="Africa",Country-Taxon="Eritrea-ERR5740712"]
+	ERR5740714[&Country="Sudan",Region="Africa",Country-Taxon="Sudan-ERR5740714"]
+	ERR5740715[&Country="Eritrea",Region="Africa",Country-Taxon="Eritrea-ERR5740715"]
+	ERR5740716[&Country="Eritrea",Region="Africa",Country-Taxon="Eritrea-ERR5740716"]
+	ERR5740717[&Country="Sudan",Region="Africa",Country-Taxon="Sudan-ERR5740717"]
+	ERR5740718[&Country="Sudan",Region="Africa",Country-Taxon="Sudan-ERR5740718"]
+	ERR5740723[&Country="Eritrea",Region="Africa",Country-Taxon="Eritrea-ERR5740723"]
+	ERR5740726[&Country="Eritrea",Region="Africa",Country-Taxon="Eritrea-ERR5740726"]
+	ERR5740728[&Country="Sudan",Region="Africa",Country-Taxon="Sudan-ERR5740728"]
+	ERR5740729[&Country="Eritrea",Region="Africa",Country-Taxon="Eritrea-ERR5740729"]
+	ERR5740740[&Country="Eritrea",Region="Africa",Country-Taxon="Eritrea-ERR5740740"]
+	ERR5740742[&Country="Eritrea",Region="Africa",Country-Taxon="Eritrea-ERR5740742"]
+	ERR5740743[&Country="Eritrea",Region="Africa",Country-Taxon="Eritrea-ERR5740743"]
+	ERR5740745[&Country="Guyana",Region="Americas",Country-Taxon="Guyana-ERR5740745"]
+	ERR5740746[&Country="Guyana",Region="Americas",Country-Taxon="Guyana-ERR5740746"]
+	ERR5740747[&Country="Guyana",Region="Americas",Country-Taxon="Guyana-ERR5740747"]
+	ERR5740751[&Country="Afghanistan",Region="Sasia",Country-Taxon="Afghanistan-ERR5740751"]
+	ERR5740754[&Country="Afghanistan",Region="Sasia",Country-Taxon="Afghanistan-ERR5740754"]
+	ERR5740756[&Country="Afghanistan",Region="Sasia",Country-Taxon="Afghanistan-ERR5740756"]
+	ERR5740759[&Country="Afghanistan",Region="Sasia",Country-Taxon="Afghanistan-ERR5740759"]
+	ERR5740760[&Country="Afghanistan",Region="Sasia",Country-Taxon="Afghanistan-ERR5740760"]
+	ERR5740761[&Country="Afghanistan",Region="Sasia",Country-Taxon="Afghanistan-ERR5740761"]
+	ERR5740764[&Country="Afghanistan",Region="Sasia",Country-Taxon="Afghanistan-ERR5740764"]
+	ERR5740770[&Country="Afghanistan",Region="Sasia",Country-Taxon="Afghanistan-ERR5740770"]
+	ERR5740771[&Country="Afghanistan",Region="Sasia",Country-Taxon="Afghanistan-ERR5740771"]
+	ERR5740773[&Country="Afghanistan",Region="Sasia",Country-Taxon="Afghanistan-ERR5740773"]
+	ERR5740775[&Country="India",Region="Sasia",Country-Taxon="India-ERR5740775"]
+	ERR5740782[&Country="India",Region="Sasia",Country-Taxon="India-ERR5740782"]
+	ERR5740785[&Country="India",Region="Sasia",Country-Taxon="India-ERR5740785"]
+	ERR5740791[&Country="India",Region="Sasia",Country-Taxon="India-ERR5740791"]
+	ERR5740792[&Country="India",Region="Sasia",Country-Taxon="India-ERR5740792"]
+	ERR5740804[&Country="India",Region="Sasia",Country-Taxon="India-ERR5740804"]
+	ERR5740806[&Country="India",Region="Sasia",Country-Taxon="India-ERR5740806"]
+	ERR5740811[&Country="India",Region="Sasia",Country-Taxon="India-ERR5740811"]
+	ERR5740813[&Country="Philippines",Region="SEAsia",Country-Taxon="Philippines-ERR5740813"]
+	ERR5740817[&Country="Pakistan",Region="Sasia",Country-Taxon="Pakistan-ERR5740817"]
+	ERR5740819[&Country="Pakistan",Region="Sasia",Country-Taxon="Pakistan-ERR5740819"]
+	ERR5740821[&Country="Pakistan",Region="Sasia",Country-Taxon="Pakistan-ERR5740821"]
+	ERR5740825[&Country="Pakistan",Region="Sasia",Country-Taxon="Pakistan-ERR5740825"]
+	ERR5740829[&Country="Pakistan",Region="Sasia",Country-Taxon="Pakistan-ERR5740829"]
+	ERR5740833[&Country="Pakistan",Region="Sasia",Country-Taxon="Pakistan-ERR5740833"]
+	ERR5740843[&Country="Pakistan",Region="Sasia",Country-Taxon="Pakistan-ERR5740843"]
+	ERR5740844[&Country="Pakistan",Region="Sasia",Country-Taxon="Pakistan-ERR5740844"]
+	ERR5740848[&Country="Pakistan",Region="Sasia",Country-Taxon="Pakistan-ERR5740848"]
+	ERR5740849[&Country="Pakistan",Region="Sasia",Country-Taxon="Pakistan-ERR5740849"]
+	ERR5740852[&Country="Sudan",Region="Africa",Country-Taxon="Sudan-ERR5740852"]
+	ERR925433[&Country="Ethiopia",Region="Africa",Country-Taxon="Ethiopia-ERR925433"]
+	ERR925438[&Country="Ethiopia",Region="Africa",Country-Taxon="Ethiopia-ERR925438"]
+	ERR925443[&Country="Indonesia",Region="SEAsia",Country-Taxon="Indonesia-ERR925443"]
+	'SANRU_9_HC_ATTACTCG.CCTATCCT_S5_L001'[&Country="DRC",Region="Africa",Accession="SANRU_9",Country-Taxon="DRC-SRR22565198"]
+	SRR10969353[&Country="Myanmar",Region="Easia",Country-Taxon="Myanmar-SRR10969353"]
+	SRR10969355[&Country="Myanmar",Region="Easia",Country-Taxon="Myanmar-SRR10969355"]
+	SRR10969357[&Country="Myanmar",Region="Easia",Country-Taxon="Myanmar-SRR10969357"]
+	SRR10969358[&Country="Myanmar",Region="Easia",Country-Taxon="Myanmar-SRR10969358"]
+	SRR10969359[&Country="Myanmar",Region="Easia",Country-Taxon="Myanmar-SRR10969359"]
+	SRR10969360[&Country="China",Region="Easia",Country-Taxon="China-SRR10969360"]
+	SRR10969361[&Country="China",Region="Easia",Country-Taxon="China-SRR10969361"]
+	SRR10969362[&Country="China",Region="Easia",Country-Taxon="China-SRR10969362"]
+	SRR10969364[&Country="China",Region="Easia",Country-Taxon="China-SRR10969364"]
+	SRR10969365[&Country="Myanmar",Region="Easia",Country-Taxon="Myanmar-SRR10969365"]
+	SRR10969371[&Country="Myanmar",Region="Easia",Country-Taxon="Myanmar-SRR10969371"]
+	SRR10969372[&Country="Myanmar",Region="Easia",Country-Taxon="Myanmar-SRR10969372"]
+	SRR10969373[&Country="Myanmar",Region="Easia",Country-Taxon="Myanmar-SRR10969373"]
+	SRR14191956[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-SRR14191956"]
+	SRR14191957[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-SRR14191957"]
+	SRR14191958[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-SRR14191958"]
+	SRR14191961[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-SRR14191961"]
+	SRR14191963[&Country="Sudan",Region="Africa",Country-Taxon="Sudan-SRR14191963"]
+	SRR14191964[&Country="Sudan",Region="Africa",Country-Taxon="Sudan-SRR14191964"]
+	SRR14191965[&Country="Sudan",Region="Africa",Country-Taxon="Sudan-SRR14191965"]
+	SRR14191967[&Country="Mauritania",Region="Africa",Country-Taxon="Mauritania-SRR14191967"]
+	SRR14191970[&Country="Mauritania",Region="Africa",Country-Taxon="Mauritania-SRR14191970"]
+	SRR14191972[&Country="Mauritania",Region="Africa",Country-Taxon="Mauritania-SRR14191972"]
+	SRR14191973[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-SRR14191973"]
+	SRR14191975[&Country="Mauritania",Region="Africa",Country-Taxon="Mauritania-SRR14191975"]
+	SRR14191976[&Country="Mauritania",Region="Africa",Country-Taxon="Mauritania-SRR14191976"]
+	SRR14191977[&Country="Mauritania",Region="Africa",Country-Taxon="Mauritania-SRR14191977"]
+	SRR14191978[&Country="Mauritania",Region="Africa",Country-Taxon="Mauritania-SRR14191978"]
+	SRR14191979[&Country="Mauritania",Region="Africa",Country-Taxon="Mauritania-SRR14191979"]
+	SRR14191980[&Country="Mauritania",Region="Africa",Country-Taxon="Mauritania-SRR14191980"]
+	SRR1562517[&Country="Panama",Region="Americas",Country-Taxon="Panama-SRR1562517"]
+	SRR1562518[&Country="Colombia",Region="Americas",Country-Taxon="Colombia-SRR1562518"]
+	SRR1562519[&Country="Peru",Region="Americas",Country-Taxon="Peru-SRR1562519"]
+	SRR1562522[&Country="Mexico",Region="Americas",Country-Taxon="Mexico-SRR1562522"]
+	SRR1562526[&Country="Mexico",Region="Americas",Country-Taxon="Mexico-SRR1562526"]
+	SRR1562555[&Country="Colombia",Region="Americas",Country-Taxon="Colombia-SRR1562555"]
+	SRR1562567[&Country="Peru",Region="Americas",Country-Taxon="Peru-SRR1562567"]
+	SRR1562614[&Country="Peru",Region="Americas",Country-Taxon="Peru-SRR1562614"]
+	SRR1562615[&Country="Peru",Region="Americas",Country-Taxon="Peru-SRR1562615"]
+	SRR1562844[&Country="Nicaragua",Region="Americas",Country-Taxon="Nicaragua-SRR1562844"]
+	SRR1562851[&Country="Peru",Region="Americas",Country-Taxon="Peru-SRR1562851"]
+	SRR1564630[&Country="Peru",Region="Americas",Country-Taxon="Peru-SRR1564630"]
+	SRR1568013[&Country="Myanmar",Region="Easia",Country-Taxon="Myanmar-SRR1568013"]
+	SRR1568110[&Country="Mexico",Region="Americas",Country-Taxon="Mexico-SRR1568110"]
+	SRR1568113[&Country="Peru",Region="Americas",Country-Taxon="Peru-SRR1568113"]
+	SRR1568117[&Country="Peru",Region="Americas",Country-Taxon="Peru-SRR1568117"]
+	SRR1568126[&Country="Mexico",Region="Americas",Country-Taxon="Mexico-SRR1568126"]
+	SRR1568128[&Country="Colombia",Region="Americas",Country-Taxon="Colombia-SRR1568128"]
+	SRR1568150[&Country="Mexico",Region="Americas",Country-Taxon="Mexico-SRR1568150"]
+	SRR1568153[&Country="Mexico",Region="Americas",Country-Taxon="Mexico-SRR1568153"]
+	SRR1568158[&Country="Mexico",Region="Americas",Country-Taxon="Mexico-SRR1568158"]
+	SRR1568160[&Country="Colombia",Region="Americas",Country-Taxon="Colombia-SRR1568160"]
+	SRR1568169[&Country="Colombia",Region="Americas",Country-Taxon="Colombia-SRR1568169"]
+	SRR1568177[&Country="PapuaNewGuinea",Region="SEAsia",Country-Taxon="PapuaNewGuinea-SRR1568177"]
+	SRR1568190[&Country="Mexico",Region="Americas",Country-Taxon="Mexico-SRR1568190"]
+	SRR1568192[&Country="Brazil",Region="Americas",Country-Taxon="Brazil-SRR1568192"]
+	SRR1568218[&Country="Mexico",Region="Americas",Country-Taxon="Mexico-SRR1568218"]
+	SRR1568223[&Country="Mexico",Region="Americas",Country-Taxon="Mexico-SRR1568223"]
+	SRR1568232[&Country="Peru",Region="Americas",Country-Taxon="Peru-SRR1568232"]
+	SRR1738040[&Country="India",Region="Sasia",Country-Taxon="India-SRR1738040"]
+	SRR1759047[&Country="Peru",Region="Americas",Country-Taxon="Peru-SRR1759047"]
+	SRR1759522[&Country="PapuaNewGuinea",Region="SEAsia",Country-Taxon="PapuaNewGuinea-SRR1759522"]
+	SRR1759523[&Country="PapuaNewGuinea",Region="SEAsia",Country-Taxon="PapuaNewGuinea-SRR1759523"]
+	SRR1759594[&Country="PapuaNewGuinea",Region="SEAsia",Country-Taxon="PapuaNewGuinea-SRR1759594"]
+	SRR2316872[&Country="Cambodia",Region="Easia",Country-Taxon="Cambodia-SRR2316872"]
+	SRR2316923[&Country="Cambodia",Region="Easia",Country-Taxon="Cambodia-SRR2316923"]
+	SRR2317109[&Country="Cambodia",Region="Easia",Country-Taxon="Cambodia-SRR2317109"]
+	SRR2317322[&Country="Cambodia",Region="Easia",Country-Taxon="Cambodia-SRR2317322"]
+	SRR2413274[&Country="Colombia",Region="Americas",Country-Taxon="Colombia-SRR2413274"]
+	SRR2413275[&Country="Colombia",Region="Americas",Country-Taxon="Colombia-SRR2413275"]
+	SRR2413304[&Country="Colombia",Region="Americas",Country-Taxon="Colombia-SRR2413304"]
+	SRR2413306[&Country="Colombia",Region="Americas",Country-Taxon="Colombia-SRR2413306"]
+	SRR2413357[&Country="Colombia",Region="Americas",Country-Taxon="Colombia-SRR2413357"]
+	SRR3098077[&Country="China",Region="Easia",Country-Taxon="China-SRR3098077"]
+	SRR332413[&Country="Mauritania",Region="Africa",Country-Taxon="Mauritania-SRR332413"]
+	SRR332562[&Country="NorthKorea",Region="Easia",Country-Taxon="NorthKorea-SRR332562"]
+	SRR3926867[&Country="China",Region="Easia",Country-Taxon="China-SRR3926867"]
+	SRR3926973[&Country="China",Region="Easia",Country-Taxon="China-SRR3926973"]
+	SRR3926981[&Country="China",Region="Easia",Country-Taxon="China-SRR3926981"]
+	SRR3926983[&Country="China",Region="Easia",Country-Taxon="China-SRR3926983"]
+	SRR5099324[&Country="Brazil",Region="Americas",Country-Taxon="Brazil-SRR5099324"]
+	SRR5099325[&Country="Brazil",Region="Americas",Country-Taxon="Brazil-SRR5099325"]
+	SRR5099326[&Country="Brazil",Region="Americas",Country-Taxon="Brazil-SRR5099326"]
+	SRR5278291[&Country="Brazil",Region="Americas",Country-Taxon="Brazil-SRR5278291"]
+	SRR5278293[&Country="Brazil",Region="Americas",Country-Taxon="Brazil-SRR5278293"]
+	SRR5278298[&Country="Brazil",Region="Americas",Country-Taxon="Brazil-SRR5278298"]
+	SRR5278301[&Country="Brazil",Region="Americas",Country-Taxon="Brazil-SRR5278301"]
+	SRR570031[&Country="Madagascar",Region="Africa",Country-Taxon="Madagascar-SRR570031"]
+	SRR6361423[&Country="Cambodia",Region="Easia",Country-Taxon="Cambodia-SRR6361423"]
+	SRR6361497[&Country="Cambodia",Region="Easia",Country-Taxon="Cambodia-SRR6361497"]
+	SRR6361545[&Country="Cambodia",Region="Easia",Country-Taxon="Cambodia-SRR6361545"]
+	SRR6361655[&Country="Cambodia",Region="Easia",Country-Taxon="Cambodia-SRR6361655"]
+	SRR6361693[&Country="Cambodia",Region="Easia",Country-Taxon="Cambodia-SRR6361693"]
+	SRR6361699[&Country="Cambodia",Region="Easia",Country-Taxon="Cambodia-SRR6361699"]
+	SRR7255035[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-SRR7255035"]
+	SRR7255037[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-SRR7255037"]
+	SRR7255039[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-SRR7255039"]
+	SRR7255040[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-SRR7255040"]
+	SRR7255042[&Country="vivax-like",Region="vivax-like",Country-Taxon="vivax-like-SRR7255042"]
+;
+end;
+
+begin trees;
+	tree tree_1 = [&R] (ERR5740761:5.4E-5,(((((ERR5740751:0.005148,ERR5740821:0.005037)[&bs="100/28"]:0.001128,((ERR5740773:0.004152,ERR5740754:0.004144)[&bs="100/100"]:0.001703,(ERR5740756:0.004925,ERR5740817:0.004952)[&bs="100/32"]:9.16E-4)[&bs="45.2/29"]:3.37E-4)[&bs="52.2/22"]:3.62E-4,(((((ERR5740764:0.004811,ERR5740848:0.005039)[&bs="100/51"]:9.94E-4,(ERR5740791:0.005941,ERR5740849:0.005225)[&bs="100/22"]:0.001093)[&bs="96.7/27"]:4.5E-4,((ERR5740811:0.005918,ERR5740829:0.004955)[&bs="100/27"]:0.001027,(ERR1475434:0.006026,ERR5740825:0.005112)[&bs="100/33"]:0.001211)[&bs="100/27"]:6.66E-4)[&bs="100/27"]:4.67E-4,((((((((((((ERR018932:0.003471,SRR5278291:0.002855)[&bs="100/100"]:0.001568,((ERR5740746:1.03E-4,ERR5740747:5.0E-5)[&bs="99.3/100"]:3.5E-5,ERR5740745:6.6E-5)[&bs="100/100"]:0.004943)[&bs="100/75"]:7.86E-4,(ERR019040:0.003806,SRR5278301:0.003609)[&bs="100/100"]:0.001201)[&bs="73.9/75"]:5.02E-4,((SRR1568192:0.00225,SRR5278293:0.001828)[&bs="100/100"]:0.002451,SRR5099324:0.003801)[&bs="100/75"]:9.21E-4)[&bs="53.4/75"]:5.01E-4,(SRR5099325:0.003865,(SRR5278298:1.8E-5,SRR5099326:2.9E-5)[&bs="100/100"]:0.003934)[&bs="100/75"]:9.11E-4)[&bs="100/100"]:9.25E-4,((SRR1562567:0.004558,SRR1562614:0.004556)[&bs="100/49"]:0.00141,((SRR1562851:0.004314,(SRR1562519:5.1E-5,SRR1568113:5.5E-5)[&bs="100/100"]:0.004286)[&bs="100/49"]:0.001018,(((SRR1564630:0.003629,SRR1562615:7.11E-4)[&bs="100/100"]:0.001814,(SRR1568232:5.96E-4,SRR1568117:0.00162)[&bs="100/100"]:0.001605)[&bs="100/100"]:0.001848,SRR1759047:0.004072)[&bs="100/100"]:0.001321)[&bs="89.3/49"]:5.11E-4)[&bs="100/100"]:8.22E-4)[&bs="100/100"]:5.88E-4,((((SRR2413357:0.004318,SRR2413274:0.004403)[&bs="100/100"]:0.001974,(SRR1568128:0.005208,SRR1562555:0.004563)[&bs="100/87"]:0.001048)[&bs="94.1/87"]:5.91E-4,((SRR2413275:0.005046,SRR2413306:0.004686)[&bs="100/87"]:0.001251,(SRR1568160:0.003581,(SRR2413304:0.001435,(SRR1562518:4.63E-4,SRR1568169:0.001523)[&bs="100/100"]:0.001451)[&bs="100/100"]:0.002641)[&bs="100/100"]:0.002054)[&bs="100/87"]:8.38E-4)[&bs="100/100"]:8.02E-4,(((SRR1568126:0.001585,SRR1568110:0.001568)[&bs="100/100"]:0.002307,(((SRR1568150:0.001279,((SRR1568153:3.94E-4,(SRR1562522:0.002245,SRR1568190:0.00116)[&bs="100/73"]:8.94E-4)[&bs="100/73"]:0.00131,SRR1568158:8.64E-4)[&bs="100/73"]:0.001547)[&bs="100/62"]:7.87E-4,SRR1568218:8.8E-4)[&bs="100/100"]:0.001817,SRR1562526:0.003453)[&bs="99.9/62"]:0.001254)[&bs="100/100"]:0.002315,(SRR1568223:0.004633,SRR1562844:0.004164)[&bs="100/89"]:9.71E-4)[&bs="100/89"]:6.11E-4)[&bs="100/89"]:5.08E-4)[&bs="100/89"]:6.93E-4,SRR1562517:0.004591)[&bs="100/100"]:0.001628,((((((((((((SRR6361699:9.91E-4,SRR6361655:0.001175)[&bs="100/100"]:0.003213,SRR6361423:0.00495)[&bs="100/100"]:0.002901,ERR171580:0.004826)[&bs="100/46"]:7.34E-4,((SRR6361693:0.004819,(SRR6361545:0.006308,ERR426037:0.005958)[&bs="100/99"]:0.001112)[&bs="9.1/27"]:4.46E-4,(ERR021981:0.006136,ERR211565:0.005997)[&bs="100/22"]:9.88E-4)[&bs="100/22"]:5.22E-4)[&bs="88.4/22"]:4.25E-4,(((ERR221486:0.006468,ERR388796:0.007366)[&bs="100/79"]:0.001288,ERR216527:0.00431)[&bs="100/70"]:7.23E-4,((ERR021983:0.005902,ERR175494:0.006004)[&bs="100/79"]:0.001287,(ERR022866:0.006111,ERR023161:0.006194)[&bs="100/50"]:0.001055)[&bs="100/27"]:4.94E-4)[&bs="100/27"]:4.53E-4)[&bs="79.9/27"]:3.42E-4,(((SRR2317322:0.006404,SRR6361497:0.006266)[&bs="100/40"]:0.001146,(SRR2316872:0.00632,ERR021982:0.006148)[&bs="100/53"]:0.001065)[&bs="100/40"]:5.57E-4,(SRR2316923:0.005677,SRR2317109:0.006502)[&bs="100/63"]:0.001233)[&bs="96.1/27"]:4.08E-4)[&bs="100/70"]:6.45E-4,(((SRR3098077:0.006498,ERR1475355:0.005833)[&bs="100/100"]:0.001732,ERR337625:0.007058)[&bs="100/55"]:8.43E-4,(ERR527356:0.00658,ERR527371:0.007177)[&bs="100/79"]:0.001243)[&bs="100/36"]:5.55E-4)[&bs="99.5/37"]:4.51E-4,(((ERR527383:0.006789,ERR337611:0.006526)[&bs="100/89"]:0.001334,(ERR337607:0.006417,ERR337616:0.006551)[&bs="100/99"]:0.00132)[&bs="90.9/86"]:4.82E-4,(ERR527366:0.007065,ERR337617:0.007065)[&bs="100/60"]:0.001218)[&bs="98.2/40"]:4.66E-4)[&bs="100/36"]:5.39E-4,((SRR10969361:0.006394,(SRR10969358:0.002321,SRR1568013:0.002341)[&bs="100/100"]:0.004514)[&bs="100/100"]:0.00166,(SRR3926867:0.0066,SRR10969353:0.007178)[&bs="100/57"]:0.001102)[&bs="100/55"]:5.36E-4)[&bs="100/100"]:6.0E-4,((((((SRR10969364:1.19E-4,SRR10969357:1.34E-4)[&bs="98.9/100"]:4.3E-5,(SRR10969371:1.53E-4,SRR10969365:1.43E-4)[&bs="79.3/100"]:4.7E-5)[&bs="100/100"]:2.48E-4,SRR10969355:1.99E-4)[&bs="100/100"]:0.003229,SRR10969359:0.003854)[&bs="100/100"]:0.002782,((ERR527347:0.004154,SRR332562:0.004061)[&bs="100/100"]:0.001157,((SRR10969362:0.003071,SRR10969372:0.005116)[&bs="100/100"]:0.002103,SRR10969373:0.005563)[&bs="100/100"]:7.24E-4)[&bs="64.8/63"]:6.78E-4)[&bs="100/100"]:0.001495,(SRR3926983:0.00619,SRR3926973:0.006278)[&bs="59.4/65"]:0.001047)[&bs="100/100"]:9.99E-4)[&bs="100/83"]:8.23E-4,(((((SRR3926981:0.001637,(SRR10969360:0.001618,ERR034096:0.00312)[&bs="97.7/100"]:6.29E-4)[&bs="100/100"]:0.002023,ERR337630:0.006355)[&bs="99.9/27"]:0.001015,((ERR337624:0.006797,(ERR527373:0.006036,ERR925443:0.005881)[&bs="99.9/100"]:0.001162)[&bs="98.8/27"]:6.3E-4,(((((ERR216469:0.005283,ERR527468:0.010512)[&bs="100/30"]:8.36E-4,(ERR527453:0.005396,ERR175552:0.005551)[&bs="100/41"]:7.85E-4)[&bs="100/30"]:4.48E-4,((ERR527467:0.005465,(ERR022864:2.65E-4,SRR1759523:1.38E-4)[&bs="100/100"]:0.005281)[&bs="100/51"]:9.23E-4,(ERR175557:0.005533,SRR1568177:0.004567)[&bs="100/27"]:7.12E-4)[&bs="99.7/27"]:3.8E-4)[&bs="98.5/27"]:2.69E-4,SRR1759594:0.001083)[&bs="99.7/27"]:4.77E-4,SRR1759522:0.004903)[&bs="100/100"]:9.33E-4)[&bs="100/27"]:8.2E-4)[&bs="100/100"]:0.001006,(((ERR1475398:0.001567,(ERR1138871:1.27E-4,ERR1138870:1.27E-4)[&bs="100/100"]:0.002266)[&bs="100/100"]:0.002907,(ERR1138872:1.47E-4,(((ERR1106843:1.15E-4,ERR1138858:9.9E-5)[&bs="99.8/100"]:7.1E-5,ERR1138857:9.5E-5)[&bs="24.7/100"]:5.9E-5,ERR527363:1.5E-4)[&bs="100/100"]:1.37E-4)[&bs="100/100"]:0.004745)[&bs="100/100"]:0.002787,ERR527337:0.006687)[&bs="100/100"]:0.001467)[&bs="100/100"]:6.75E-4,ERR5740813:0.005284)[&bs="100/100"]:0.001311)[&bs="100/100"]:0.001353,((SRR7255035:0.073161,((((((ERR351949:0.049617,ERR417393:0.058635)[&bs="100/66"]:0.010377,(ERR351950:0.04178,ERR351956:0.064845)[&bs="100/100"]:0.011797)[&bs="100/66"]:0.007775,(ERR351952:0.070438,ERR351955:0.085519)[&bs="100/38"]:0.010347)[&bs="100/72"]:0.007522,((ERR417398:0.045501,SRR14191957:0.059237)[&bs="100/72"]:0.010758,((SRR7255039:0.040677,SRR7255037:0.049815)[&bs="100/100"]:0.012282,SRR7255042:0.0354)[&bs="100/86"]:0.01317)[&bs="74/57"]:0.00632)[&bs="100/86"]:0.013201,SRR14191956:0.047173)[&bs="100/86"]:0.010601,SRR7255040:0.038566)[&bs="100/100",!rotate=true]:0.020816)[&bs="100/100"]:0.106305,(((ERR417399:0.104303,SRR14191961:0.179767)[&bs="100/92"]:0.025066,SRR14191973:0.045407)[&bs="99.8/92"]:0.014727,SRR14191958:0.047454)[&bs="100/100"]:0.069369)[&bs="100/100"]:0.18397)[&bs="100/80"]:6.32E-4)[&bs="100/81"]:7.12E-4,(((ERR5740715:0.005366,ERR2679000:0.006497)[&bs="100/66"]:0.001499,(SRR14191963:0.005721,ERR5740718:0.005182)[&bs="100/66"]:0.001261)[&bs="99.7/92"]:7.22E-4,(SRR332413:0.006887,((((SRR14191979:0.001716,SRR14191978:0.004097)[&bs="100/100"]:0.001965,(((SRR14191980:1.31E-4,SRR14191975:2.06E-4)[&bs="100/100"]:0.001167,SRR14191977:0.001842)[&bs="100/100"]:0.001852,SRR14191967:0.003625)[&bs="100/100"]:0.001233)[&bs="100/100"]:0.001472,(SRR14191972:0.003584,SRR14191976:0.00344)[&bs="100/100"]:0.001656)[&bs="100/100"]:0.001172,SRR14191970:0.004973)[&bs="100/100"]:0.001492)[&bs="100/100"]:0.001487)[&bs="100/100"]:0.001251)[&bs="100/100"]:7.24E-4,((('SANRU_9_HC_ATTACTCG.CCTATCCT_S5_L001':0.005223,(ERR5740706:0.005451,ERR5740703:0.005184)[&bs="100/96"]:0.001275)[&bs="100/96"]:7.48E-4,(SRR570031:0.006653,ERR490350:0.006639)[&bs="100/100"]:0.002212)[&bs="98/96"]:6.0E-4,(((((ERR5740712:0.005191,SRR14191964:0.004273)[&bs="100/51"]:0.001062,(ERR5740729:0.004925,ERR5740852:0.005137)[&bs="100/41"]:0.001103)[&bs="100/36"]:5.6E-4,(((ERR5740726:0.003941,ERR5740742:0.0038)[&bs="100/100"]:0.002205,(ERR5740717:0.005029,ERR5740714:0.005026)[&bs="100/42"]:0.001184)[&bs="100/30"]:5.53E-4,((ERR5740723:0.005001,ERR5740743:0.00408)[&bs="100/75"]:0.001222,(ERR5740716:0.005117,SRR14191965:0.005618)[&bs="100/30"]:0.00119)[&bs="90.7/27"]:4.97E-4)[&bs="67.8/27"]:4.4E-4)[&bs="56.7/30"]:5.08E-4,((ERR5740740:0.005014,ERR5740728:0.00502)[&bs="100/33"]:0.001304,(((((ERR5740704:0.004576,ERR925438:0.005507)[&bs="53.7/41"]:0.001335,ERR2679008:0.005852)[&bs="92.8/39"]:0.001152,ERR925433:0.006076)[&bs="73.5/59"]:9.34E-4,(ERR2678996:0.006002,ERR2678998:0.005865)[&bs="100/100"]:0.001863)[&bs="95.5/59"]:5.82E-4,((ERR2679004:0.006078,ERR2679003:0.005932)[&bs="100/33"]:0.001436,(ERR2678999:0.006113,ERR2679005:0.006266)[&bs="100/32"]:0.001332)[&bs="100/71"]:7.36E-4)[&bs="100/88"]:7.48E-4)[&bs="100/30"]:5.4E-4)[&bs="100/100"]:9.37E-4,ERR5740705:0.005883)[&bs="100/96"]:7.84E-4)[&bs="99.2/100"]:5.56E-4)[&bs="100/100"]:0.001349,(((ERR054087:0.005855,ERR5740785:0.005574)[&bs="100/89"]:0.001375,(ERR5740806:0.005631,ERR5740775:0.005674)[&bs="100/75"]:0.00122)[&bs="100/63"]:5.81E-4,((ERR5740782:0.005816,ERR5740792:0.005674)[&bs="100/64"]:0.00138,(ERR5740804:0.005957,ERR054081:0.006037)[&bs="100/27"]:0.00109)[&bs="100/27"]:6.73E-4)[&bs="23.7/27"]:4.1E-4)[&bs="99.8/27"]:4.22E-4)[&bs="99.8/27"]:3.76E-4,(((ERR5740760:0.004808,ERR5740771:0.004988)[&bs="100/27"]:9.24E-4,(ERR5740707:0.004238,ERR5740843:0.004167)[&bs="100/100"]:0.001798)[&bs="75.4/27"]:3.58E-4,(SRR1738040:0.005854,ERR5740819:0.004944)[&bs="100/47"]:0.001127)[&bs="100/27"]:3.94E-4)[&bs="93/27"]:3.58E-4)[&bs="100/27"]:4.4E-4,(ERR5740759:0.00503,ERR5740844:0.004969)[&bs="100/27"]:9.39E-4)[&bs="100/47"]:0.001007,ERR5740833:0.005124)[&bs="100/100"]:0.004954,ERR5740770:4.4E-5);
+end;
+
+begin figtree;
+	set appearance.backgroundColorAttribute="Default";
+	set appearance.backgroundColour=#ffffff;
+	set appearance.branchColorAttribute="User selection";
+	set appearance.branchColorGradient=false;
+	set appearance.branchLineWidth=2.0;
+	set appearance.branchMinLineWidth=0.0;
+	set appearance.branchWidthAttribute="Fixed";
+	set appearance.foregroundColour=#000000;
+	set appearance.hilightingGradient=false;
+	set appearance.selectionColour=#2d3680;
+	set branchLabels.colorAttribute="User selection";
+	set branchLabels.displayAttribute="bs";
+	set branchLabels.fontName=".SF NS Text";
+	set branchLabels.fontSize=8;
+	set branchLabels.fontStyle=0;
+	set branchLabels.isShown=false;
+	set branchLabels.significantDigits=2;
+	set layout.expansion=1000;
+	set layout.layoutType="RECTILINEAR";
+	set layout.zoom=0;
+	set legend.attribute="bs";
+	set legend.fontSize=10.0;
+	set legend.isShown=false;
+	set legend.significantDigits=4;
+	set nodeBars.barWidth=4.0;
+	set nodeBars.displayAttribute=null;
+	set nodeBars.isShown=false;
+	set nodeLabels.colorAttribute="User selection";
+	set nodeLabels.displayAttribute="bs";
+	set nodeLabels.fontName=".AppleSystemUIFont";
+	set nodeLabels.fontSize=12;
+	set nodeLabels.fontStyle=1;
+	set nodeLabels.isShown=true;
+	set nodeLabels.significantDigits=2;
+	set nodeShapeExternal.colourAttribute="User selection";
+	set nodeShapeExternal.isShown=false;
+	set nodeShapeExternal.minSize=10.0;
+	set nodeShapeExternal.scaleType=Width;
+	set nodeShapeExternal.shapeType=Circle;
+	set nodeShapeExternal.size=4.0;
+	set nodeShapeExternal.sizeAttribute="Fixed";
+	set nodeShapeInternal.colourAttribute="User selection";
+	set nodeShapeInternal.isShown=false;
+	set nodeShapeInternal.minSize=10.0;
+	set nodeShapeInternal.scaleType=Width;
+	set nodeShapeInternal.shapeType=Circle;
+	set nodeShapeInternal.size=4.0;
+	set nodeShapeInternal.sizeAttribute="Fixed";
+	set polarLayout.alignTipLabels=false;
+	set polarLayout.angularRange=0;
+	set polarLayout.rootAngle=0;
+	set polarLayout.rootLength=100;
+	set polarLayout.showRoot=true;
+	set radialLayout.spread=0.0;
+	set rectilinearLayout.alignTipLabels=false;
+	set rectilinearLayout.curvature=0;
+	set rectilinearLayout.rootLength=0;
+	set scale.offsetAge=0.0;
+	set scale.rootAge=1.0;
+	set scale.scaleFactor=1.0;
+	set scale.scaleRoot=false;
+	set scaleAxis.automaticScale=true;
+	set scaleAxis.fontSize=8.0;
+	set scaleAxis.isShown=false;
+	set scaleAxis.lineWidth=1.0;
+	set scaleAxis.majorTicks=1.0;
+	set scaleAxis.minorTicks=0.5;
+	set scaleAxis.origin=0.0;
+	set scaleAxis.reverseAxis=false;
+	set scaleAxis.showGrid=true;
+	set scaleBar.automaticScale=true;
+	set scaleBar.fontSize=12.0;
+	set scaleBar.isShown=true;
+	set scaleBar.lineWidth=2.0;
+	set scaleBar.scaleRange=0.0;
+	set tipLabels.colorAttribute="Country";
+	set tipLabels.displayAttribute="Country-Taxon";
+	set tipLabels.fontName=".AppleSystemUIFont";
+	set tipLabels.fontSize=14;
+	set tipLabels.fontStyle=1;
+	set tipLabels.isShown=true;
+	set tipLabels.significantDigits=4;
+	set trees.order=false;
+	set trees.orderType="increasing";
+	set trees.rooting=true;
+	set trees.rootingType="User Selection";
+	set trees.transform=true;
+	set trees.transformType="cladogram";
+end;
+
